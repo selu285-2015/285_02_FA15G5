@@ -9,6 +9,7 @@ public class RoundEnd : MonoBehaviour {
 		if(attacked.gameObject.name == "Player")
 		{
 			Application.LoadLevel("Start_Screen");
+			Application.LoadLevel(1);
 		}
 
 	}
