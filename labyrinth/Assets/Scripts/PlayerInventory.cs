@@ -16,6 +16,14 @@ public class PlayerInventory : MonoBehaviour {
 
    void OnGUI()
     {
-        GUI.Label(new Rect(20, 100, 200, 100), "Player inventory: \n Item 1: " + item1);
+        if(item1 == true){
+            GUI.Label(new Rect(20, 100, 200, 100), "Player inventory: \n Item 1");
+        }
+
+        if(item1 == false)
+        {
+            GUI.Label(new Rect(20, 100, 200, 100), "Player inventory:");
+        }
+
     }
 }
