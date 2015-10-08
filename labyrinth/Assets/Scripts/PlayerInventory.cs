@@ -16,6 +16,7 @@ public class PlayerInventory : MonoBehaviour {
 
    void OnGUI()
     {
+		GUI.contentColor = Color.red;
         if(item1 == true){
             GUI.Label(new Rect(20, 100, 200, 100), "Player inventory: \n Item 1");
         }

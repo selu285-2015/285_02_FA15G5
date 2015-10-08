@@ -26,6 +26,6 @@ public class Timer : MonoBehaviour {
 	void OnGUI ()
 	{
 		GUI.contentColor = Color.red;
-		GUI.Label (new Rect (900, 4, 400, 50),"<size=30>"+ minutes.ToString() + ":" + seconds.ToString()+ "</size>");
+		GUI.Label (new Rect (Screen.width-100, 100, 200, 100),"<size=20>"+ minutes.ToString() + ":" + seconds.ToString()+ "</size>");
 	}
 }
