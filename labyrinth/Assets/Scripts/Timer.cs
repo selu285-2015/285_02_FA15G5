@@ -33,5 +33,6 @@ public class Timer : MonoBehaviour {
             GUI.Label(new Rect(900, 4, 400, 50), "<size=30>" + "0:00" + "</size>");
         }
 		GUI.Label (new Rect (900, 4, 400, 50),"<size=30>"+ display + "</size>");
+
 	}
 }
