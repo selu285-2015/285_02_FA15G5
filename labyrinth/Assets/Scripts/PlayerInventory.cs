@@ -3,10 +3,13 @@ using System.Collections;
 
 public class PlayerInventory : MonoBehaviour {
     bool item1;
+    GUIStyle style = new GUIStyle();
 
     void Start()
     {
         item1 = false;
+        style.fontSize = 20;
+        style.normal.textColor = Color.white;
     }
 
     public void SetInventory(bool set)
@@ -16,13 +19,14 @@ public class PlayerInventory : MonoBehaviour {
 
    void OnGUI()
     {
-        if(item1 == true){
-            GUI.Label(new Rect(20, 100, 200, 100), "Player inventory: \n Item 1");
+
+        if (item1 == true){
+            GUI.Label(new Rect(20, 100, 200, 100), "Player inventory: \n Item 1", style);
         }
 
         if(item1 == false)
         {
-            GUI.Label(new Rect(20, 100, 200, 100), "Player inventory:");
+            GUI.Label(new Rect(20, 100, 200, 100), "Player inventory:", style);
         }
 
     }
