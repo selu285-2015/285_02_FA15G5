@@ -3,32 +3,40 @@ using System.Collections;
 
 public class GamePause : MonoBehaviour {
     bool pause;
+    GameObject PauseMenu;
 
-	// Use this for initialization
 	void Start () {
         pause = false;
-	}
-	
-	// Update is called once per frame
+        PauseMenu = GameObject.Find("Pause");
+        PauseMenu.SetActive(pause);
+    }
+
 	void Update () {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             pause = !pause;
-            if (pause == true)
-            {
-                Time.timeScale = 0f;
-            }
-            else
-                Time.timeScale = 1;
         }
 
-	}
-
-    void OnGUI()
-    {
-        if(pause == true)
+        if (pause == true)
         {
-            GUILayout.Box("Game Paused");
+            GameObject.Find("Player").GetComponent<FirstPerson>().enabled = !pause;
+            PauseMenu.SetActive(pause);
+            Time.timeScale = 0;
+        }
+
+        if (pause == false)
+        {
+            GameObject.Find("Player").GetComponent<FirstPerson>().enabled = !pause;
+            Time.timeScale = 1;
+            PauseMenu.SetActive(pause);
         }
     }
+
+
+    public void SetShowMenuOnClick(bool isClicked)
+    {
+        pause = isClicked;
+        PauseMenu.SetActive(isClicked);
+    }
+
 }
