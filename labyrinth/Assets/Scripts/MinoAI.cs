@@ -10,13 +10,16 @@ public class MinoAI : MonoBehaviour
 
     // Objects we need
     public NavMeshAgent minotaur;
+    private Transform playerLastLocation;
     public Transform playerLocation;
     public GameObject player;
 
-    // Minotaur speed variables
+    // Misc variables
     public float minoWalkSpeed;
     public float minoRunSpeed;
     public float minoChargeSpeed;
+    public float lastKnown = 4.0f;
+    private float trackCooldown;
 
     // Time variables for Investigate mode
     public float investigateTime = 13.0f;
@@ -24,12 +27,14 @@ public class MinoAI : MonoBehaviour
 
     // Sight-related variables for Investigate mode
     public float fieldOfView = 60.0f;
-    public float sightRange = 15.0f;
+    public float sightLength = 15.0f;
     public float minoEyeHeight;
+    public float visionRange = 45.0f;
+    private float visionAngle;
 
     // Variables for player searching for Investigate mode
     private bool playerInTrigger = false;
-    public float playerRadiusToSearch = 5.0f;
+    static public float playerRadiusToSearch = 13.0f;
     private float xPlayerRadiusToSearch;
     private float zPlayerRadiusToSearch;
     private float distanceToPoint;
@@ -44,7 +49,7 @@ public class MinoAI : MonoBehaviour
         INVESTIGATE,
         SIGHTED
     }
-    public State minoState;
+    static public State minoState;
 
     // Finite State Machine allows us to change states as needed
     IEnumerator FiniteStateMachine()
@@ -71,7 +76,7 @@ public class MinoAI : MonoBehaviour
     void Find()
     {
         minotaur.speed = minoChargeSpeed;
-        minotaur.destination = playerLocation.position;
+        minotaur.destination = playerLastLocation.position;
     }
 
     // Investigate() is enabled when Mino is near the player.  Mino needs "sight" now to find the player.
@@ -80,37 +85,21 @@ public class MinoAI : MonoBehaviour
     {
         minotaur.speed = minoWalkSpeed;
 
-        Debug.DrawRay(transform.position + Vector3.up * minoEyeHeight, transform.forward * sightRange, Color.red);  //for visual reference
-        Debug.DrawRay(transform.position + Vector3.up * minoEyeHeight, (transform.forward + (transform.right / 10)) * sightRange, Color.red);
-        Debug.DrawRay(transform.position + Vector3.up * minoEyeHeight, (transform.forward - (transform.right / 10)) * sightRange, Color.red);
+        visionAngle = Vector3.Angle((playerLastLocation.position - transform.position), transform.forward);
+        RaycastHit hit; 
+        if (visionAngle < visionRange)
+        {
+            Debug.DrawRay(transform.position + Vector3.up * minoEyeHeight, (playerLastLocation.position - transform.position), Color.cyan);
+            if (Physics.Raycast(transform.position + Vector3.up * minoEyeHeight, (playerLastLocation.position - transform.position), out hit, sightLength))
+            {
+                if (hit.collider.gameObject.tag == "Player")
+                {
+                    minoState = MinoAI.State.SIGHTED;
+                    player = hit.collider.gameObject;
+                }
+            }
+        }
 
-        RaycastHit hit;
-
-        // draws a raycast from the mino's postion at eye height; it's direction is forward; using hit; it is sightRange in length 
-        if (Physics.Raycast(transform.position + Vector3.up * minoEyeHeight, transform.forward, out hit, sightRange))
-        {
-            if (hit.collider.gameObject.tag == "Player")
-            {
-                minoState = MinoAI.State.SIGHTED;
-                player = hit.collider.gameObject;
-            }
-        }
-        if (Physics.Raycast(transform.position + Vector3.up * minoEyeHeight, (transform.forward + (transform.right / 10)), out hit, sightRange))
-        {
-            if (hit.collider.gameObject.tag == "Player")
-            {
-                minoState = MinoAI.State.SIGHTED;
-                player = hit.collider.gameObject;
-            }
-        }
-        if (Physics.Raycast(transform.position + Vector3.up * minoEyeHeight, (transform.forward - (transform.right / 10)), out hit, sightRange))
-        {
-            if (hit.collider.gameObject.tag == "Player")
-            {
-                minoState = MinoAI.State.SIGHTED;
-                player = hit.collider.gameObject;
-            }
-        }
 
         distanceToPoint = Vector3.Distance(newDestination, transform.position);
         if (distanceToPoint <= 5)
@@ -118,19 +107,18 @@ public class MinoAI : MonoBehaviour
             searchForPlayer();  // find a new position to search if mino is within 5 units of point
         }
 
-        distanceToPlayer = Vector3.Distance(playerLocation.position, transform.position);
+        distanceToPlayer = Vector3.Distance(playerLastLocation.position, transform.position);
         if (distanceToPlayer >= 80)
         {
             minoState = MinoAI.State.FIND;  // find the player if he strays too far away too quickly
         }
 
-        if (distanceToPlayer <= 3)
+        if (distanceToPlayer <= 3.5f)
         {
             minoState = MinoAI.State.SIGHTED; // find the player if he's out of our sight but really close (no corner cheesing)
         }
 
         time += Time.deltaTime;  // time variable increments every 1 second
-
         if (time >= investigateTime)  //if investigate time is over and player is out of mino radius, switch back to find mode to catch up to the player
         {
             if (playerInTrigger == false)
@@ -143,7 +131,7 @@ public class MinoAI : MonoBehaviour
     void Sighted()
     {
         minotaur.speed = minoRunSpeed;
-        minotaur.destination = playerLocation.position;  // filler until I figure out how to flesh out walk/run/charge mechanics
+        minotaur.destination = playerLastLocation.position;  // filler until I figure out how to flesh out walk/run/charge mechanics
     }
 
 
@@ -173,13 +161,15 @@ public class MinoAI : MonoBehaviour
         xPlayerRadiusToSearch = rand.x;
         zPlayerRadiusToSearch = rand.y;
 
-        newDestination = new Vector3((playerLocation.position.x + xPlayerRadiusToSearch), 0, (playerLocation.position.z + zPlayerRadiusToSearch));
+        newDestination = new Vector3((playerLastLocation.position.x + xPlayerRadiusToSearch), 0, (playerLastLocation.position.z + zPlayerRadiusToSearch));
         minotaur.destination = newDestination;
         Debug.DrawRay(newDestination, Vector3.up * 15, Color.yellow, 15.0f);  // visual reference for points chosen, they last 15 seconds
     }
 
     void Start()
     {
+        playerLastLocation = playerLocation;
+
         minotaur = GetComponent<NavMeshAgent>();
 
         minoState = MinoAI.State.FIND;  // initialized to find player first
@@ -187,5 +177,15 @@ public class MinoAI : MonoBehaviour
         minoOn = true;
 
         StartCoroutine("FiniteStateMachine");
+    }
+
+    void Update()
+    {
+        trackCooldown += Time.deltaTime;
+        if (lastKnown < trackCooldown)
+        {
+            trackCooldown = 0;
+            playerLastLocation = playerLocation;
+        }
     }
 }

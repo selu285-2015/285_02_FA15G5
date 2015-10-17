@@ -3,7 +3,7 @@ using System.Collections;
 
 public class GameEnd : MonoBehaviour {
     bool message = false;
-    GameObject player;
+    public GameObject player;
 
 	// Use this for initialization
 	void Start () {
