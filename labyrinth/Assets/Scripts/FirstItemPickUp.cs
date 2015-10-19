@@ -28,8 +28,8 @@ public class FirstItemPickUp : MonoBehaviour {
 
 	void OnGUI() {
 		if(message == true){
-			GUILayout.Box("There is no lever yet. Left click to pick up the item.");
-			GameObject effect = GameObject.Find("Capsule");
+			GUILayout.Box("This is a lever. Left click to pick it up.");
+			GameObject effect = GameObject.Find("Cylinder");
 			if(Input.GetMouseButtonDown(0)){
 				Destroy(effect);
                 player.GetComponent<PlayerInventory>().SetInventory(true);
