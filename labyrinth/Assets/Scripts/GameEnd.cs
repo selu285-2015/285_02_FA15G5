@@ -2,7 +2,6 @@
 using System.Collections;
 
 public class GameEnd : MonoBehaviour {
-    bool message = false;
     public GameObject player;
 
 	// Use this for initialization
@@ -14,14 +13,9 @@ public class GameEnd : MonoBehaviour {
 
         if (player.gameObject.name == "Player")
         {
-            message = true;
+            Application.LoadLevel("Ending");
         }
 
     }
 
-    void OnGUI(){
-        if (message == true){
-            GUILayout.Box("You Win!");
-        }
-	}
 }
