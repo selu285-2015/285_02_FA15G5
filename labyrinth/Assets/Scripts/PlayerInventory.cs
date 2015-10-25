@@ -21,7 +21,7 @@ public class PlayerInventory : MonoBehaviour {
     {
 
         if (item1 == true){
-            GUI.Label(new Rect(20, 100, 200, 100), "Player inventory: \n Item 1", style);
+            GUI.Label(new Rect(20, 100, 200, 100), "Player inventory: \n Lever Piece", style);
         }
 
         if(item1 == false)
