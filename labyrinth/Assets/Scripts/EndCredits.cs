@@ -24,7 +24,7 @@ public class EndCredits : MonoBehaviour {
 	void Update () {
         if(move == true) {
             team.transform.Translate(Vector3.up * Time.deltaTime * speed);
-            if(team.transform.position.y > Screen.height + 200)
+            if(team.transform.position.y > Screen.height + 350)
             {
                 move = false;
             }

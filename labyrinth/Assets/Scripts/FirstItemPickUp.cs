@@ -5,10 +5,15 @@ public class FirstItemPickUp : MonoBehaviour {
 
 	bool message = false;
     GameObject player;
+    GUIStyle style = new GUIStyle();
+    public Font myFont;
 
     void Start()
     {
         player = GameObject.Find("Player");
+        style.fontSize = 20;
+        style.normal.textColor = Color.white;
+        style.font = myFont;
     }
 
 	void OnTriggerEnter(Collider player ) {
@@ -28,7 +33,7 @@ public class FirstItemPickUp : MonoBehaviour {
 
 	void OnGUI() {
 		if(message == true){
-			GUILayout.Box("This is a lever. Left click to pick it up.");
+			GUILayout.Box("This is a lever piece. Left click to pick it up.", style);
 			GameObject effect = GameObject.Find("Lever Piece");
 			if(Input.GetMouseButtonDown(0)){
 				Destroy(effect);
