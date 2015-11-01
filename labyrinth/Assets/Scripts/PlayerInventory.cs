@@ -5,10 +5,12 @@ public class PlayerInventory : MonoBehaviour {
     bool item1;
     GUIStyle style = new GUIStyle();
     public Font myFont;
+    AudioSource sound;
 
     void Start()
     {
         item1 = false;
+        sound = GetComponent<AudioSource>();
         style.fontSize = 30;
         style.normal.textColor = Color.white;
         style.font = myFont;
@@ -17,6 +19,7 @@ public class PlayerInventory : MonoBehaviour {
     public void SetInventory(bool set)
     {
         item1 = set;
+        sound.Play();
     }
 
    void OnGUI()
