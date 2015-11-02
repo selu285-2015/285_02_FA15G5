@@ -5,12 +5,14 @@ public class FirstItemPickUp : MonoBehaviour {
 
 	bool message = false;
     GameObject player;
+    GameObject leverSpot;
     GUIStyle style = new GUIStyle();
     public Font myFont;
 
     void Start()
     {
         player = GameObject.Find("Player");
+        leverSpot = GameObject.Find("Lever Trigger");
         style.fontSize = 20;
         style.normal.textColor = Color.white;
         style.font = myFont;
@@ -38,6 +40,7 @@ public class FirstItemPickUp : MonoBehaviour {
 			if(Input.GetMouseButtonDown(0)){
 				Destroy(effect);
                 player.GetComponent<PlayerInventory>().SetInventory(true);
+                leverSpot.GetComponent<LeverTrigger>().PickedUpLeverPiece(true);
 			}
 		}
 	}
