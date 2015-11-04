@@ -49,7 +49,7 @@ public class RoundEnd : MonoBehaviour {
             GUI.Label(new Rect(900, 4, 400, 50), "<size=30>" + "0:00" + "</size>");
         }
 		GUI.Label (new Rect (900, 4, 400, 50),"<size=30>"+ display + "</size>");
-        GUILayout.Box("death count = " + deathCount + "\n" + "total time = " + totalTime);
+        GUILayout.Box("death count = " + deathCount + "\n" + "total time = " + totalTime + "\n" + "time in secs = " + timeInSecs);
 	}
 }
 

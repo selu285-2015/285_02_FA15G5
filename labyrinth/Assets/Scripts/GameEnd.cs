@@ -4,11 +4,11 @@ using System.Collections;
 public class GameEnd : MonoBehaviour {
     public GameObject player;
 
-    public static int totalTime;
-    public RoundEnd roundTime;
+    public static int totalTime = 0;
+    public RoundEnd deathTimes;
+
 	// Use this for initialization
 	void Start () {
-        player = GameObject.Find("Player");
 	}
 
     void OnTriggerEnter(Collider player){
@@ -16,8 +16,7 @@ public class GameEnd : MonoBehaviour {
         if (player.gameObject.name == "Player")
         {
             Application.LoadLevel("HighScores");
-            totalTime = RoundEnd.totalTime + roundTime.timeInSecs;
-
+            totalTime = deathTimes.timeInSecs;
         }
 
     }
