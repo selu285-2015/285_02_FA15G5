@@ -3,18 +3,31 @@ using System.Collections;
 
 public class TriggerWaterphone : MonoBehaviour {
 
-    AudioSource waterphoneSound;
+    public AudioSource waterphoneSound1;
+    public AudioSource waterphoneSound2;
+    int time;
 
 	// Use this for initialization
 	void Start () {
-        waterphoneSound = GetComponent<AudioSource>();
+        waterphoneSound1 = GetComponent<AudioSource>();
+        waterphoneSound2 = GetComponent<AudioSource>();
+        StartCoroutine("PlayTime");
 	}
-	
-	void OnTriggerEnter(Collider player) {
-        if (player.tag == "Player")
-        {
-            waterphoneSound.Play();
+
+    private IEnumerator PlayTime(){
+        while(true){
+            yield return new WaitForSeconds(1);
+			time++;
+            if (time % 15 == 0){
+                int chooseSound = Random.Range(1, 2);
+                if(chooseSound % 2 == 1){
+                    waterphoneSound1.Play();
+                }else
+                {
+                    waterphoneSound2.Play();
+                }
+            }
         }
-	}
+    }
 
 }
