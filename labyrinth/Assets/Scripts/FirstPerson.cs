@@ -23,6 +23,8 @@ public class FirstPerson : MonoBehaviour {
 
 	private CharacterController controller;
 
+    
+
 	//simple method for setting sprint true or false
 	void sprinting(bool isSprinting) {
 		sprint = isSprinting;
@@ -34,8 +36,8 @@ public class FirstPerson : MonoBehaviour {
 
 
 	void Start () {
-		//Cursor.lockState = CursorLockMode.Locked;
-		//Cursor.visible = false;
+		Cursor.lockState = CursorLockMode.Locked;
+		Cursor.visible = false;
 
 		controller = GetComponent<CharacterController> ();
 		movementSpeed = walkSpeed;

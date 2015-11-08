@@ -8,6 +8,7 @@ public class PauseMenu : MonoBehaviour {
     GameObject player;
 
 	void Start () {
+        
         resume = resume.GetComponent<Button>();
         exit = exit.GetComponent<Button>();
         player = GameObject.Find("Player");
@@ -16,6 +17,7 @@ public class PauseMenu : MonoBehaviour {
 
 	public void ResumeGame () {
         player.GetComponent<GamePause>().SetShowMenuOnClick(false);
+        
 	}
 
     public void ExitGame()

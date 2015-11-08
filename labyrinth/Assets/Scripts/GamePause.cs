@@ -19,6 +19,7 @@ public class GamePause : MonoBehaviour {
 
         if (pause == true)
         {
+            Cursor.visible = true;
             GameObject.Find("Player").GetComponent<FirstPerson>().enabled = !pause;
             PauseMenu.SetActive(pause);
             Time.timeScale = 0;
@@ -26,6 +27,7 @@ public class GamePause : MonoBehaviour {
 
         if (pause == false)
         {
+            Cursor.visible = false;
             GameObject.Find("Player").GetComponent<FirstPerson>().enabled = !pause;
             Time.timeScale = 1;
             PauseMenu.SetActive(pause);
