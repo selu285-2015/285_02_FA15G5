@@ -1,62 +1,44 @@
 fileFormatVersion: 2
-guid: 99988507cbcc42b4da3a27e73d87d23a
-timeCreated: 1446358715
+guid: dec2a61ed0fc8cc479ef2379c717fddb
+timeCreated: 1447039030
 licenseType: Free
 ModelImporter:
   serializedVersion: 18
   fileIDToRecycleName:
     100000: Armature
     100002: Bone
-    100004: Bone_0
-    100006: Bone_001
-    100008: Bone_002
-    100010: Bone_003
-    100012: Bone_004
-    100014: Bone_005
-    100016: Bone_006
-    100018: Bone_007
-    100020: Bone_008
-    100022: Bone_009
-    100024: Bone_010
-    100026: ConnectionPiece
-    100028: Lever
-    100030: //RootNode
-    100032: LeverArmature
-    100034: Sphere
-    100036: DiscArmature
+    100004: Bone_001
+    100006: Bone_002
+    100008: Bone_003
+    100010: Bone_004
+    100012: Bone_005
+    100014: Bone_006
+    100016: Bone_007
+    100018: Bone_008
+    100020: Bone_009
+    100022: Bone_010
+    100024: Lever
+    100026: //RootNode
     400000: Armature
     400002: Bone
-    400004: Bone_0
-    400006: Bone_001
-    400008: Bone_002
-    400010: Bone_003
-    400012: Bone_004
-    400014: Bone_005
-    400016: Bone_006
-    400018: Bone_007
-    400020: Bone_008
-    400022: Bone_009
-    400024: Bone_010
-    400026: ConnectionPiece
-    400028: Lever
-    400030: //RootNode
-    400032: LeverArmature
-    400034: Sphere
-    400036: DiscArmature
-    2300000: Sphere
-    3300000: Sphere
-    4300000: ConnectionPiece
-    4300002: Lever
-    4300004: Sphere
-    7400000: LeverAnimation
-    7400002: ArmatureAction_001
-    7400004: LeverArmatureAction
-    7400006: DiscArmatureAction
-    7400008: LeverAction
-    7400010: ArmatureAction
+    400004: Bone_001
+    400006: Bone_002
+    400008: Bone_003
+    400010: Bone_004
+    400012: Bone_005
+    400014: Bone_006
+    400016: Bone_007
+    400018: Bone_008
+    400020: Bone_009
+    400022: Bone_010
+    400024: Lever
+    400026: //RootNode
+    4300000: Lever
+    7400000: Default Take
+    7400002: LeverMovementAction
+    7400004: LeverMovementAction0
     9500000: //RootNode
-    13700000: ConnectionPiece
-    13700002: Lever
+    13700000: Lever
   materials:
     importMaterials: 1
     materialName: 0
@@ -78,8 +60,8 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: DiscArmatureAction
-      takeName: DiscArmatureAction
+      name: LeverMovementAction
+      takeName: LeverMovementAction
       firstFrame: 0
       lastFrame: 15
       wrapMode: 0
@@ -88,42 +70,6 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: ConnectionPiece
-        weight: 1
-      - path: DiscArmature
-        weight: 1
-      - path: DiscArmature/Bone
-        weight: 1
-      - path: Sphere
-        weight: 1
-      maskType: 0
-      maskSource: {instanceID: 0}
-    - serializedVersion: 16
-      name: ArmatureAction
-      takeName: ArmatureAction
-      firstFrame: 0
-      lastFrame: 15
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -163,15 +109,7 @@ ModelImporter:
         weight: 1
       - path: Armature/Bone/Bone_001/Bone_002/Bone_003/Bone_004/Bone_005/Bone_006/Bone_010
         weight: 1
-      - path: ConnectionPiece
-        weight: 1
-      - path: DiscArmature
-        weight: 1
-      - path: DiscArmature/Bone_0
-        weight: 1
       - path: Lever
-        weight: 1
-      - path: Sphere
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}

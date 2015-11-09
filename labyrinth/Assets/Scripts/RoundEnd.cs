@@ -10,8 +10,11 @@ public class RoundEnd : MonoBehaviour {
     public int minutes = 0;
     public int timeInSecs;
     string display;
+    GUIStyle style = new GUIStyle();
+    public Font myFont;
+    public int fontS;
 
-	void OnCollisionEnter(Collision attacked) {
+    void OnCollisionEnter(Collision attacked) {
 
 		if(attacked.gameObject.name == "Player")
 		{
@@ -25,6 +28,9 @@ public class RoundEnd : MonoBehaviour {
 	
      void Start () 
 	{
+        style.fontSize = fontS;
+        style.font = myFont;
+        style.normal.textColor = Color.red;
 		StartCoroutine ("PlayTime");
 	}
 
@@ -46,10 +52,10 @@ public class RoundEnd : MonoBehaviour {
 		GUI.contentColor = Color.red;
         if(time < 1)
         {
-            GUI.Label(new Rect(900, 4, 400, 50), "<size=30>" + "0:00" + "</size>");
+            GUI.Label(new Rect(900, 4, 400, 50), "<size=30>" + "0:00" + "</size>", style);
         }
-		GUI.Label (new Rect (900, 4, 400, 50),"<size=30>"+ display + "</size>");
-        GUILayout.Box("death count = " + deathCount + "\n" + "total time = " + totalTime + "\n" + "time in secs = " + timeInSecs);
+		GUI.Label (new Rect (900, 4, 400, 50),"<size=30>"+ display + "</size>", style);
+        GUILayout.Box("death count: " + deathCount + "\n" + "total time: " + totalTime + "\n" + "time in secs: " + timeInSecs, style);
 	}
 }
 

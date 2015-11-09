@@ -8,9 +8,13 @@ public class Timer : MonoBehaviour {
     public int timeInSecs;
     string display;
     GameObject timer;
+    public Font myFont;
+    GUIStyle style = new GUIStyle();
     
     void Start () 
 	{
+        style.fontSize = 30;
+        style.font = myFont;
 		StartCoroutine ("PlayTime");
 	}
 
@@ -32,8 +36,8 @@ public class Timer : MonoBehaviour {
 		GUI.contentColor = Color.red;
         if(time < 1)
         {
-            GUI.Label(new Rect(900, 4, 400, 50), "<size=30>" + "0:00" + "</size>");
+            GUI.Label(new Rect(900, 4, 400, 50), "<size=30>" + "0:00" + "</size>", style);
         }
-		GUI.Label (new Rect (900, 4, 400, 50),"<size=30>"+ display + "</size>");
+		GUI.Label (new Rect (900, 4, 400, 50),"<size=30>"+ display + "</size>", style);
 	}
 }

@@ -8,12 +8,17 @@ public class MovingWalls : MonoBehaviour {
     AudioSource wallSound;
     public float wallSpeed;
     public ParticleSystem particle;
+    GameObject LnC;
+    Animator animator;
+    
+
 	// Use this for initialization
 	void Start () {
         isMoving = false;
         wall = GameObject.Find("Moving Wall");
         wallSound = GetComponent<AudioSource>();
-
+        LnC = GameObject.Find("Lever_And_Contraption");
+        animator = LnC.GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame
@@ -28,6 +33,7 @@ public class MovingWalls : MonoBehaviour {
         if (!(wallSound.isPlaying))
         {
             particle.Stop();
+            LnC.GetComponent<AnimationControllerScript>().StartAnimation(false);
         }
 	}
 
