@@ -18,7 +18,7 @@ public class LeverTrigger : MonoBehaviour {
         lever = GameObject.Find("ConnectionPiece");
         LnC = GameObject.Find("Lever_and_Contraption");
         isVisible = false;
-        lever.SetActive(isVisible);
+        lever.SetActive(false);
         hasLeverPiece = false;
         message = false;
         style.fontSize = 25;
@@ -63,9 +63,10 @@ public class LeverTrigger : MonoBehaviour {
             {
                 LnC.GetComponent<AnimationControllerScript>().StartAnimation(true);
                 isVisible = true;
-                lever.SetActive(isVisible);
+                lever.SetActive(true);
                 player.GetComponent<PlayerInventory>().SetInventory(false);
                 wall.GetComponent<MovingWalls>().IsMoving(true);
+                Destroy(this);
             }
         }
     }

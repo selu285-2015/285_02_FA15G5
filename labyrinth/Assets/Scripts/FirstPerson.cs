@@ -34,8 +34,8 @@ public class FirstPerson : MonoBehaviour {
 
 
 	void Start () {
-		//Cursor.lockState = CursorLockMode.Locked;
-		//Cursor.visible = false;
+		Cursor.lockState = CursorLockMode.Locked;
+		Cursor.visible = false;
 
 		controller = GetComponent<CharacterController> ();
 		movementSpeed = walkSpeed;
