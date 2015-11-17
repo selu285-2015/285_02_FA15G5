@@ -1,8 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
+using Mono.Data.Sqlite;
+using System.Data;
+using System;
 
 public class HighScores : MonoBehaviour {
+
+    
+    IDbConnection dbconn;
 
     int deaths;
     int time;
@@ -11,54 +16,76 @@ public class HighScores : MonoBehaviour {
     string deathsString;
     string timeInMinsAndSecs;
     GUIText highScores;
+    GUIStyle style = new GUIStyle();
+    public Font myFont;
+    IDbCommand dbcmd;
+    IDataReader reader;
+    string sql;
 
 	// Use this for initialization
 	void Start () {
+        string conn = "URI=file:" + Application.dataPath + "/Plugins" + "/HighScores.s3db";
+        dbconn = (IDbConnection)new SqliteConnection(conn);
+        dbconn.Open();
+        dbcmd = dbconn.CreateCommand();
+
+
         deaths = RoundEnd.deathCount;
         time = RoundEnd.totalTime + GameEnd.totalTime;
         mins = time / 60;
         secs = time % 60;
         timeInMinsAndSecs = string.Format("{0:0}:{1:00}", mins, secs);
-        PlayerPrefs.DeleteAll();
-        GameOver();
+        style.fontSize = 25;
+        style.normal.textColor = Color.white;
+        style.font = myFont;
+        WriteToDB();
+        ReadFromDB();
+        CloseDB();
 	}
-	
-	void GameOver () { 
-        if (!PlayerPrefs.HasKey("Score1"))
-            {
-                PlayerPrefs.SetFloat("Score1", deaths);
-                PlayerPrefs.SetString("Score1", deaths.ToString());
-                PlayerPrefs.SetFloat("Score1_Time", time);
-                PlayerPrefs.SetString("Score1_Time", timeInMinsAndSecs);
-            }
 
-        if (!PlayerPrefs.HasKey("Score2"))
-        {
-            if (deaths < PlayerPrefs.GetFloat("Score1"))
-            {
-                PlayerPrefs.SetFloat("Score2", PlayerPrefs.GetFloat("Score1"));
-                PlayerPrefs.SetString("Score2_Time", PlayerPrefs.GetString("Score1_Time"));
-                PlayerPrefs.SetFloat("Score1", deaths);
-                PlayerPrefs.SetString("Score1", deaths.ToString());
-                PlayerPrefs.SetFloat("Score1_Time", time);
-                PlayerPrefs.SetString("Score1_Time", timeInMinsAndSecs);
-            }
-
-            if (deaths == PlayerPrefs.GetFloat("Score1"))
-            {
-
-            }
-        }
-
+	void WriteToDB() {
+        sql = "INSERT INTO HighScoresTable (Deaths, Time) VALUES ("+deaths+","+time+")";
+        dbcmd.CommandText = sql;
+        dbcmd.ExecuteNonQuery();
 	}
-    
-    void OnGUI()
+
+    void Update()
     {
-            GUILayout.Box("Deaths" + "\t" + "Time" + "\n" +
-                    PlayerPrefs.GetString("Score1") + "\t" + PlayerPrefs.GetString("Score1_Time") + "\n" + 
-                    PlayerPrefs.GetString("Score2") + "\t" + PlayerPrefs.GetString("Score2_Time") + "\n" + 
-                    PlayerPrefs.GetString("Score3") + "\t" + PlayerPrefs.GetString("Score3_Time") + "\n" + 
-                    PlayerPrefs.GetString("Score4") + "\t" + PlayerPrefs.GetString("Score4_Time") + "\n" + 
-                    PlayerPrefs.GetString("Score5") + "\t" + PlayerPrefs.GetString("Score5_Time") + "\n");
+        if (Input.GetMouseButtonDown(0))
+        {
+            Application.LoadLevel(3);
+        }
     }
+
+    void ReadFromDB()
+    {
+        sql = "SELECT * FROM HighScoresTable ORDER BY Deaths, Time ASC LIMIT 10";
+        dbcmd.CommandText = sql;
+        reader = dbcmd.ExecuteReader();
+
+        while (reader.Read())
+        {
+            int dbDeaths = reader.GetInt32(1);
+            int dbTime = reader.GetInt32(2);
+        }
+    }
+
+    void CloseDB()
+    {
+        reader.Close();
+        reader = null;
+        dbcmd.Dispose();
+        dbcmd = null;
+        dbconn.Close();
+        dbconn = null;
+    }
+    /*void OnGUI()
+    {
+        GUI.Box(new Rect((Screen.width) / 2 - (Screen.width) / 8,
+                                (Screen.height) / 2 - (Screen.height) / 8,
+                                (Screen.width) / 4, (Screen.height) / 4),
+                                "Number of deaths: " + deaths + "\n" + "Total time: " + timeInMinsAndSecs,
+                                style);
+    }*/
+
 }

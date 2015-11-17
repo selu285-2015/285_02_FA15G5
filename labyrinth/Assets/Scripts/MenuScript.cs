@@ -19,6 +19,7 @@ public class MenuScript : MonoBehaviour
         exit = exit.GetComponent<Button>();
         FullScreen = FullScreen.GetComponent<Toggle>();
         SettingMenu.enabled = false;
+        Cursor.visible = true;
 
     }
     
