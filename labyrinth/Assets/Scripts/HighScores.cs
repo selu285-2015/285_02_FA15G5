@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using Mono.Data.Sqlite;
 using System.Data;
@@ -21,6 +22,9 @@ public class HighScores : MonoBehaviour {
     IDbCommand dbcmd;
     IDataReader reader;
     string sql;
+    string[] deathArray;
+    string[] totalTime;
+    public Text allScores;
 
 	// Use this for initialization
 	void Start () {
@@ -28,18 +32,17 @@ public class HighScores : MonoBehaviour {
         dbconn = (IDbConnection)new SqliteConnection(conn);
         dbconn.Open();
         dbcmd = dbconn.CreateCommand();
-
-
         deaths = RoundEnd.deathCount;
         time = RoundEnd.totalTime + GameEnd.totalTime;
-        mins = time / 60;
-        secs = time % 60;
-        timeInMinsAndSecs = string.Format("{0:0}:{1:00}", mins, secs);
         style.fontSize = 25;
         style.normal.textColor = Color.white;
         style.font = myFont;
+        allScores.color = Color.white;
+        deathArray = new string[10];
+        totalTime = new string[10];
         WriteToDB();
         ReadFromDB();
+        DisplayHighScores();
         CloseDB();
 	}
 
@@ -63,11 +66,24 @@ public class HighScores : MonoBehaviour {
         dbcmd.CommandText = sql;
         reader = dbcmd.ExecuteReader();
 
+        int i = 0;
         while (reader.Read())
         {
             int dbDeaths = reader.GetInt32(1);
             int dbTime = reader.GetInt32(2);
+            string stringTime = TimeToString(dbTime);
+            deathArray[i] = dbDeaths.ToString();
+            totalTime[i] = stringTime;
+            i++;
         }
+    }
+
+    string TimeToString(int time)
+    {
+        mins = time / 60;
+        secs = time % 60;
+        timeInMinsAndSecs = string.Format("{0:0}:{1:00}", mins, secs);
+        return timeInMinsAndSecs;
     }
 
     void CloseDB()
@@ -79,13 +95,15 @@ public class HighScores : MonoBehaviour {
         dbconn.Close();
         dbconn = null;
     }
-    /*void OnGUI()
+
+    void DisplayHighScores()
     {
-        GUI.Box(new Rect((Screen.width) / 2 - (Screen.width) / 8,
-                                (Screen.height) / 2 - (Screen.height) / 8,
-                                (Screen.width) / 4, (Screen.height) / 4),
-                                "Number of deaths: " + deaths + "\n" + "Total time: " + timeInMinsAndSecs,
-                                style);
-    }*/
+        allScores.text = "";
+
+        for (int i = 0; i < 10; i++)
+        {
+            allScores.text += deathArray[i] + "\t" + "\t" + "\t" +totalTime[i] + "\n";
+        }
+    }
 
 }
