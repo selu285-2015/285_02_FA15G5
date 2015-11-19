@@ -14,12 +14,13 @@ public class MenuScript : MonoBehaviour
 
     public void Start ()
     {
+        Cursor.visible = true;
+        Screen.lockCursor = false;
         start = start.GetComponent<Button>();
         settings = settings.GetComponent<Button>();
         exit = exit.GetComponent<Button>();
         FullScreen = FullScreen.GetComponent<Toggle>();
         SettingMenu.enabled = false;
-        Cursor.visible = true;
 
     }
     
@@ -103,10 +104,5 @@ public class MenuScript : MonoBehaviour
     public void SetKeyBind()
     {
         
-    }
-
-    void OnGUI()
-    {
-        GUILayout.Box("URI=file:" + Application.streamingAssetsPath + "/HighScores.s3db");
     }
 }
