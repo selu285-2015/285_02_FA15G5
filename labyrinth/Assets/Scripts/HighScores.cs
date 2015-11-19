@@ -28,10 +28,6 @@ public class HighScores : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        string conn = "URI=file:" + Application.dataPath + "/Plugins" + "/HighScores.s3db";
-        dbconn = (IDbConnection)new SqliteConnection(conn);
-        dbconn.Open();
-        dbcmd = dbconn.CreateCommand();
         deaths = RoundEnd.deathCount;
         time = RoundEnd.totalTime + GameEnd.totalTime;
         style.fontSize = 25;
@@ -40,6 +36,11 @@ public class HighScores : MonoBehaviour {
         allScores.color = Color.white;
         deathArray = new string[10];
         totalTime = new string[10];
+        allScores.text = "";
+        string conn = "URI=file:" + Application.streamingAssetsPath + "/HighScores.s3db";
+        dbconn = (IDbConnection) new SqliteConnection(conn);
+        dbconn.Open();
+        dbcmd = dbconn.CreateCommand();
         WriteToDB();
         ReadFromDB();
         DisplayHighScores();
@@ -98,7 +99,6 @@ public class HighScores : MonoBehaviour {
 
     void DisplayHighScores()
     {
-        allScores.text = "";
 
         for (int i = 0; i < 10; i++)
         {

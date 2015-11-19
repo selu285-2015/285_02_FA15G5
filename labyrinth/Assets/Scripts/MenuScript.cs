@@ -104,4 +104,9 @@ public class MenuScript : MonoBehaviour
     {
         
     }
+
+    void OnGUI()
+    {
+        GUILayout.Box("URI=file:" + Application.streamingAssetsPath + "/HighScores.s3db");
+    }
 }
