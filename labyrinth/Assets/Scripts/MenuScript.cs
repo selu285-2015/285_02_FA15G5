@@ -26,6 +26,8 @@ public class MenuScript : MonoBehaviour
     
     public void StartLevel()
     {
+        RoundEnd.deathCount = 0;
+        RoundEnd.totalTime = 0;
         Application.LoadLevel(1);
     }
 

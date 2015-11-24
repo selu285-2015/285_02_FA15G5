@@ -23,6 +23,7 @@ public class GamePause : MonoBehaviour {
         if (pause == true)
         {
             Cursor.visible = true;
+            Screen.lockCursor = false;
             GameObject.Find("Player").GetComponent<FirstPerson>().enabled = !pause;
             PauseMenu.SetActive(pause);
             Time.timeScale = 0;
