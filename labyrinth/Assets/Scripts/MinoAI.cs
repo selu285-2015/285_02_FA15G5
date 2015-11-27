@@ -13,6 +13,7 @@ public class MinoAI : MonoBehaviour
     private Transform playerLastLocation;
     public Transform playerLocation;
     public GameObject player;
+    public Animation animation;
 
     // Misc variables
     public float minoWalkSpeed;
@@ -168,6 +169,9 @@ public class MinoAI : MonoBehaviour
 
     void Start()
     {
+        
+        animation.Play();
+
         playerLastLocation = playerLocation;
 
         minotaur = GetComponent<NavMeshAgent>();
