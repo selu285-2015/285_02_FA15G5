@@ -43,7 +43,7 @@ public class EndCredits : MonoBehaviour {
         {
             if (Input.GetMouseButtonDown(0))
             {
-                Application.LoadLevel("Start_Screen");
+                Application.LoadLevel(0);
             }
             continueMessage.text = "";
             yield return new WaitForSeconds(.5f);

@@ -15,7 +15,7 @@ public class GameEnd : MonoBehaviour {
 
         if (player.gameObject.name == "Player")
         {
-            Application.LoadLevel("HighScores");
+            Application.LoadLevel(2);
             totalTime = deathTimes.timeInSecs;
         }
 

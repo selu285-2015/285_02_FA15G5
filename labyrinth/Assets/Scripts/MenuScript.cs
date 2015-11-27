@@ -14,6 +14,8 @@ public class MenuScript : MonoBehaviour
 
     public void Start ()
     {
+        Cursor.visible = true;
+        Screen.lockCursor = false;
         start = start.GetComponent<Button>();
         settings = settings.GetComponent<Button>();
         exit = exit.GetComponent<Button>();
@@ -24,6 +26,8 @@ public class MenuScript : MonoBehaviour
     
     public void StartLevel()
     {
+        RoundEnd.deathCount = 0;
+        RoundEnd.totalTime = 0;
         Application.LoadLevel(1);
     }
 
