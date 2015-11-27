@@ -21,7 +21,6 @@ public class RoundEnd : MonoBehaviour {
 			Application.LoadLevel(1);
             deathCount++;
             totalTime = totalTime + timeInSecs;
-            OnGUI();
 		}
 
 	}
@@ -47,15 +46,5 @@ public class RoundEnd : MonoBehaviour {
 		}
 	}
 	
-	void OnGUI ()
-	{
-		GUI.contentColor = Color.red;
-        if(time < 1)
-        {
-            GUI.Label(new Rect(900, 4, 400, 50), "<size=30>" + "0:00" + "</size>", style);
-        }
-		GUI.Label (new Rect (900, 4, 400, 50),"<size=30>"+ display + "</size>", style);
-        GUILayout.Box("death count: " + deathCount + "\n" + "total time: " + totalTime + "\n" + "time in secs: " + timeInSecs, style);
-	}
 }
 
