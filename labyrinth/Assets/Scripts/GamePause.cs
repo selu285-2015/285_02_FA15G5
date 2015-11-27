@@ -4,12 +4,15 @@ using System.Collections;
 public class GamePause : MonoBehaviour {
     bool pause;
     GameObject PauseMenu;
+    GameObject footsteps;
+    public AudioSource footstep;
 
-	void Start () {
+    void Start () {
         pause = false;
         PauseMenu = GameObject.Find("Pause");
         PauseMenu.SetActive(pause);
-        
+        footstep = footsteps.GetComponent<AudioSource>();
+
     }
 
 	void Update () {
@@ -26,6 +29,7 @@ public class GamePause : MonoBehaviour {
             GameObject.Find("Player").GetComponent<FirstPerson>().enabled = !pause;
             PauseMenu.SetActive(pause);
             Time.timeScale = 0;
+            footstep.Stop();
         }
 
         if (pause == false)

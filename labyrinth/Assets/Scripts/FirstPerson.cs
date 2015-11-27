@@ -21,7 +21,7 @@ public class FirstPerson : MonoBehaviour {
 	public float viewRange = 70.0f;
 	float verticalStart = 0;	//had to look this up, using this variable sets the Quaternion.Euler (from center screen, 360 degree view angle) to count from 0 to -1 or 1 as you move the mouse up/down, rather than from 0 to 1 and 0 to 359
 
-	private CharacterController controller;
+	public CharacterController controller;
 
 	//simple method for setting sprint true or false
 	void sprinting(bool isSprinting) {

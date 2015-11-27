@@ -14,6 +14,7 @@ public class AnimationControllerScript : MonoBehaviour {
 	void Update () {
         animator.SetBool("Activated", isMoving);
 	}
+
     public void StartAnimation(bool begin)
     {
         isMoving = begin;
