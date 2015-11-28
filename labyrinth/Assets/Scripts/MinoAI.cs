@@ -13,6 +13,7 @@ public class MinoAI : MonoBehaviour
     private Transform playerLastLocation;
     public Transform playerLocation;
     public GameObject player;
+    public Transform[] spawnPoints;
     public Animation animation;
 
     // Misc variables
@@ -21,6 +22,7 @@ public class MinoAI : MonoBehaviour
     public float minoChargeSpeed;
     public float lastKnown = 4.0f;
     private float trackCooldown;
+    private int randomSpawnPoint;
 
     // Time variables for Investigate mode
     public float investigateTime = 13.0f;
@@ -87,7 +89,7 @@ public class MinoAI : MonoBehaviour
         minotaur.speed = minoWalkSpeed;
 
         visionAngle = Vector3.Angle((playerLastLocation.position - transform.position), transform.forward);
-        RaycastHit hit; 
+        RaycastHit hit;
         if (visionAngle < visionRange)
         {
             Debug.DrawRay(transform.position + Vector3.up * minoEyeHeight, (playerLastLocation.position - transform.position), Color.cyan);
@@ -169,8 +171,15 @@ public class MinoAI : MonoBehaviour
 
     void Start()
     {
-        
         animation.Play();
+
+        minotaur.enabled = false;
+
+        randomSpawnPoint = Random.Range(0, spawnPoints.Length);
+
+        transform.position = new Vector3(spawnPoints[randomSpawnPoint].position.x, spawnPoints[randomSpawnPoint].position.y, spawnPoints[randomSpawnPoint].position.z);
+
+        minotaur.enabled = true;
 
         playerLastLocation = playerLocation;
 
