@@ -8,6 +8,9 @@ public class LeverTrigger : MonoBehaviour {
     GUIStyle style = new GUIStyle();
     GameObject player;
     GameObject wall;
+    GameObject wall1;
+    GameObject wall2;
+    GameObject wall3;
     public Font myFont;
     GameObject lever;
     bool isVisible;
@@ -26,7 +29,10 @@ public class LeverTrigger : MonoBehaviour {
         style.normal.textColor = Color.white;
         player = GameObject.Find("Player");
         wall = GameObject.Find("Moving Wall");
-	}
+        wall1 = GameObject.Find("Moving Wall1");
+        wall2 = GameObject.Find("Moving Wall2");
+        wall3 = GameObject.Find("Moving Wall69");
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -66,6 +72,9 @@ public class LeverTrigger : MonoBehaviour {
                 lever.SetActive(true);
                 player.GetComponent<PlayerInventory>().SetInventory(false);
                 wall.GetComponent<MovingWalls>().IsMoving(true);
+                wall1.GetComponent<MovingWalls1>().IsMoving(true);
+                wall2.GetComponent<MovingWalls2>().IsMoving(true);
+                wall3.GetComponent<MovingWalls3>().IsMoving(true);
                 Destroy(this);
             }
         }
