@@ -15,6 +15,7 @@ public class MinoAI : MonoBehaviour
     public GameObject player;
     public Transform[] spawnPoints;
     public Animation animation;
+    public AudioSource footstep;
 
     // Misc variables
     public float minoWalkSpeed;
@@ -190,6 +191,8 @@ public class MinoAI : MonoBehaviour
         minoOn = true;
 
         StartCoroutine("FiniteStateMachine");
+
+        footstep = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -199,6 +202,11 @@ public class MinoAI : MonoBehaviour
         {
             trackCooldown = 0;
             playerLastLocation = playerLocation;
+        }
+
+        if (!(footstep.isPlaying))
+        {
+            footstep.Play();
         }
     }
 }
